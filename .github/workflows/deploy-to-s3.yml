@@ -1,0 +1,25 @@
+name: 🚀 Deploy Static Website to S3
+
+on:
+  push:
+    branches:
+      - main # or master, depending on your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🧰 Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1 # your bucket region
+
+      - name: 🚀 Deploy to S3
+        run: |
+          aws s3 sync ./ s3://my-realestate-website/ --delete --exclude ".git/*" --exclude ".github/*" --acl public-read
