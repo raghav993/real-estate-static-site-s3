@@ -22,4 +22,4 @@ jobs:
 
       - name: 🚀 Deploy to S3
         run: |
-          aws s3 sync ./ s3://my-realestate-website/ --delete --exclude ".git/*" --exclude ".github/*" --acl public-read
+          aws s3 sync ./ s3://my-realestate-website/ --delete --exclude ".git/*" --exclude ".github/*"
